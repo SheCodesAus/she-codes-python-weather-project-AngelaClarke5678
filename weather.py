@@ -14,7 +14,7 @@ def format_temperature(temp):
         A string contain the temperature and "degrees celcius."
     """
     return f"{temp}{DEGREE_SYBMOL}"
-
+print(format_temperature("32"))
 
 def convert_date(iso_string):
     """Converts and ISO formatted date into a human readable format.
@@ -35,7 +35,10 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         A float representing a temperature in degrees celcius, rounded to 1dp.
     """
-    pass
+    temp_c = round((temp_in_farenheit - 32) * 5 / 9)
+    return temp_c
+print(round(convert_f_to_c(350)))
+
 
 
 def calculate_mean(weather_data):
