@@ -47,6 +47,7 @@ print(convert_f_to_c(390))
 
 weather_data = [5,9,32,27,56]
 def calculate_mean(weather_data): #https://appdividend.com/2022/01/19/python-mean/
+    weather_list = []
     """Calculates the mean value from a list of numbers.
 
     Args:
@@ -54,15 +55,10 @@ def calculate_mean(weather_data): #https://appdividend.com/2022/01/19/python-mea
     Returns:
         A float representing the mean value.
     """
-    
-    # sum = 0
-    # length = len(weather_data)
-
-    # for weather in weather_data:
-    #     sum += float(weather)
-    # weather_mean = sum / length
-    weather_data = float(weather_data)
-    calculate_mean = statistics.mean(weather_data)
+    for weather in weather_data:
+        weather = float(weather)
+        weather_list.append(weather) 
+        calculate_mean = statistics.mean(weather_list)
     return calculate_mean
 print(calculate_mean(weather_data))
 
