@@ -1,5 +1,7 @@
 import csv
 from datetime import datetime
+import statistics
+
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
@@ -16,7 +18,7 @@ def format_temperature(temp):
     return f"{temp}{DEGREE_SYBMOL}"
 print(format_temperature("32"))
 
-def convert_date(iso_string):
+def convert_date(iso_string): #https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
     """Converts and ISO formatted date into a human readable format.
 
     Args:
@@ -24,7 +26,10 @@ def convert_date(iso_string):
     Returns:
         A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
     """
-    pass
+    convert_date = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S%z") #creating the date time object
+    convert_date =  datetime.strftime(convert_date, "%A %d %B %Y") #formating to required format
+    return convert_date   
+print(convert_date("2021-07-05T07:00:00+08:00"))
 
 
 def convert_f_to_c(temp_in_farenheit):
@@ -35,13 +40,13 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         A float representing a temperature in degrees celcius, rounded to 1dp.
     """
-    temp_c = round((temp_in_farenheit - 32) * 5 / 9)
+    temp_c = round(((float(temp_in_farenheit) - 32) * 5 / 9),1) #doing everything at once because I'm lazy
     return temp_c
-print(round(convert_f_to_c(350)))
+print(convert_f_to_c(390))
 
 
-
-def calculate_mean(weather_data):
+weather_data = [5,9,32,27,56]
+def calculate_mean(weather_data): #https://appdividend.com/2022/01/19/python-mean/
     """Calculates the mean value from a list of numbers.
 
     Args:
@@ -49,8 +54,17 @@ def calculate_mean(weather_data):
     Returns:
         A float representing the mean value.
     """
-    pass
+    
+    # sum = 0
+    # length = len(weather_data)
 
+    # for weather in weather_data:
+    #     sum += float(weather)
+    # weather_mean = sum / length
+    weather_data = float(weather_data)
+    calculate_mean = statistics.mean(weather_data)
+    return calculate_mean
+print(calculate_mean(weather_data))
 
 def load_data_from_csv(csv_file):
     """Reads a csv file and stores the data in a list.
