@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime
+from encodings import utf_8
 import statistics
 
 
@@ -70,7 +71,16 @@ def load_data_from_csv(csv_file):
     Returns:
         A list of lists, where each sublist is a (non-empty) line in the csv file.
     """
-    pass
+    import csv
+    with open(csv_file) as file:
+        file_reader = csv.reader(file, delimiter=",") 
+        for row in file_reader:
+            print(row)
+            print(f"{row[0]}: {row[1]}")
+    return csv_file
+
+    
+
 
 
 def find_min(weather_data):
