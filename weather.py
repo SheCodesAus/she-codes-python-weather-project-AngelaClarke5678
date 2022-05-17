@@ -2,6 +2,7 @@ import csv
 from datetime import datetime
 from encodings import utf_8
 import statistics
+import pandas as pd
 
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
@@ -71,15 +72,13 @@ def load_data_from_csv(csv_file):
     Returns:
         A list of lists, where each sublist is a (non-empty) line in the csv file.
     """
-    import csv
-    with open(csv_file) as file:
-        file_reader = csv.reader(file, delimiter=",") 
-        for row in file_reader:
-            print(row)
-            print(f"{row[0]}: {row[1]}")
+  
+    df = pd.read_csv(csv_file, delimiter=',')
+    list_of_rows = [list(row) for row in df.values]
+    print(list_of_rows)
     return csv_file
 
-    
+print(load_data_from_csv("tests/data/example_one.csv"))    
 
 
 
