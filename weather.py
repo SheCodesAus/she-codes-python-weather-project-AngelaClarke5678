@@ -3,6 +3,7 @@ from datetime import datetime
 from encodings import utf_8
 import statistics
 import pandas 
+import os
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
@@ -41,7 +42,7 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         A float representing a temperature in degrees celcius, rounded to 1dp.
     """
-    temp_c = round(((float(temp_in_farenheit) - 32) * 5 / 9),1) #doing everything at once because I'm lazy
+    temp_c = round(((float(temp_in_farenheit) - 32) * 5 / 9),1) 
     return temp_c
 print(convert_f_to_c(390))
 
@@ -70,16 +71,7 @@ def load_data_from_csv(csv_file):
         csv_file: a string representing the file path to a csv file.
     Returns:
         A list of lists, where each sublist is a (non-empty) line in the csv file.
-    """
-  
-#     df = pd.read_csv(csv_file, delimiter=',')
-#     list_of_rows = [list(row) for row in df.values] I tried PANDAS and it failed so I went back to forloops
-#     for line in list_of_rows:
-#         list_of_rows = list(map(float,line[1]))
-
-#     return csv_file
-# print(load_data_from_csv("tests/data/example_one.csv"))    
-
+    """   
 
     weather_data = []
 
@@ -105,15 +97,6 @@ def find_min(weather_data): #min max functions https://www.youtube.com/watch?v=f
     Returns:
         The minium value and it's position in the list.
     """
-    # for weather in weather_data:
-    #     weather_list = []
-    #     weather = float(weather)
-    #     weather_list.append(weather) 
-    #     list_min = min(weather_data)
-    #     min_index = weather_data.index(list_min)
-    #     find_min = print(f"{list_min}, {min_index}")
-    # return find_min
-
    
     if weather_data == []: #if list is empty
         return() #skip
@@ -126,18 +109,6 @@ def find_min(weather_data): #min max functions https://www.youtube.com/watch?v=f
     return min_val, min_index
     
 print(find_min(weather_data))
-    # if weather_data != []:
-    #     for element in weather_data:
-    #         element = float(element)
-    #         min_val = weather_data[0]
-    #         if element <= float(min_val):
-    #             min_val = element
-    #             min_loc = index
-    #         index += 1
-    # return min_val, min_loc
-
-
-
 
 def find_max(weather_data):
     """Calculates the maximum value in a list of numbers.
@@ -167,17 +138,25 @@ def generate_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-    pass
-lowest_temp = min(weather_data[1])
-highest_temp = find_max(weather_data)
-convert_date(weather_data)
+
+with open("tests/data/example_one.csv", encoding="utf-8") as csv_file: 
+    weather_data = csv.reader(csv_file, delimiter = ",")
+
+    # length = len(weather_data) #retreving the amount of forecasts 
+    lowest_record = [min[1] for min in weather_data] #retreiving the lowest temp in list
+    highest_record = [max[2] for max in weather_data] #retreiving the highest temp in list
+    date = [date[0] for date in weather_data] #retreiving the ddate index
+
+    lowest_temp =  format_temperature(convert_f_to_c(find_min(lowest_record)[0])) #i think i've done something wrong
+    # lowest_date = convert_date(find_min)
+    highest_temp = 0
 
 print(highest_temp)
 print(lowest_temp)
 
 
-print("5 Day Overview")
-print(f"The lowest temperature will be {lowest_temp} , and will occur on ")
+print("{days} Day Overview")
+print(f"The lowest temperature will be {lowest_temp} , and will occur on {date}  ")
 
 
 #5 Day Overview
