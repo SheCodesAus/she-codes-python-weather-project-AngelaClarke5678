@@ -97,7 +97,7 @@ print(load_data_from_csv("tests/data/example_one.csv"))
 weather_data = [49, 57, 56, 55, 53, 49]
 
 
-def find_min(weather_data): #https://www.youtube.com/watch?v=fdwyp1xvD_I
+def find_min(weather_data): #min max functions https://www.youtube.com/watch?v=fdwyp1xvD_I, range length https://www.freecodecamp.org/news/list-index-out-of-range-python-error-message-solved/#:~:text=You'll%20get%20the%20Indexerror,you're%20using%20negative%20indexing.
     """Calculates the minimum value in a list of numbers.
 
     Args:
@@ -120,7 +120,7 @@ def find_min(weather_data): #https://www.youtube.com/watch?v=fdwyp1xvD_I
     else: #if list has content
         min_val = float(weather_data[0]) #min value = typecasted first index of list
         for i in range(0,len(weather_data),1): #for weather temp in range to length of list
-            if min_val >= float(weather_data[i]): #if min value greater than index
+            if min_val >= float(weather_data[i]): #if min value greater than intital variable
                 min_val = min(min_val, float(weather_data[i])) #min function used to declare the min value in the list
                 min_index = i #min index equals index
     return min_val, min_index
@@ -152,7 +152,7 @@ def find_max(weather_data):
     else: #if list has content
         max_val = float(weather_data[0]) #min value = typecasted first index of list
         for i in range(0,len(weather_data),1): #for weather temp in range to length of list
-            if max_val <= float(weather_data[i]): #if min value greater than index
+            if max_val <= float(weather_data[i]): #if max value less than initial variable
                 max_val = max(max_val, float(weather_data[i])) #max function used to declare the max value in the list
                 max_index = i #min index equals index
     return max_val, max_index
@@ -168,7 +168,23 @@ def generate_summary(weather_data):
         A string containing the summary information.
     """
     pass
+lowest_temp = min(weather_data[1])
+highest_temp = find_max(weather_data)
+convert_date(weather_data)
 
+print(highest_temp)
+print(lowest_temp)
+
+
+print("5 Day Overview")
+print(f"The lowest temperature will be {lowest_temp} , and will occur on ")
+
+
+#5 Day Overview
+#   The lowest temperature will be 9.4°C, and will occur on Friday 02 July 2021.
+#   The highest temperature will be 20.0°C, and will occur on Saturday 03 July 2021.
+#   The average low this week is 12.2°C.
+#   The average high this week is 17.8°C.
 
 def generate_daily_summary(weather_data):
     """Outputs a daily summary for the given weather data.
