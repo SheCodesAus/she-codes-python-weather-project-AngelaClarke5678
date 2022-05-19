@@ -170,16 +170,17 @@ def generate_daily_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-weather_data = load_data_from_csv("tests/data/example_two.csv")
-daily_list = []
+    # weather_data = load_data_from_csv("tests/data/example_one.csv")
+    daily_list = []
 
 
-for data in weather_data:
-    day = data[0]
-    # max_temp = format_temperature(convert_f_to_c(find_max(weather_data[0][2])))
-    lowest_record = [min[1] for min in weather_data]
-
-print(lowest_record)
+    for data in weather_data:
+        day = convert_date(data[0])
+        min_temp = format_temperature(convert_f_to_c(data[1]))
+        max_temp = format_temperature(convert_f_to_c(data[2]))
+        daily_forecast = f"---- {day} ----\n  Minimum Temperature: {min_temp}\n  Maximum Temperature: {max_temp}\n\n"
+        daily_list.append(daily_forecast)
+    return "".join(daily_list) #https://www.w3schools.com/python/ref_string_join.asp, https://realpython.com/python-string-split-concatenate-join/#concatenating-and-joining-strings
 
 # ---- Friday 02 July 2021 ----
 #   Minimum Temperature: 9.4°C
