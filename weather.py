@@ -97,7 +97,7 @@ def find_min(weather_data): #min max functions https://www.youtube.com/watch?v=f
     Returns:
         The minium value and it's position in the list.
     """
-   
+
     if weather_data == []: #if list is empty
         return() #skip
     else: #if list has content
@@ -139,31 +139,28 @@ def generate_summary(weather_data):
         A string containing the summary information.
     """
 
-with open("tests/data/example_one.csv", encoding="utf-8") as csv_file: 
-    weather_data = csv.reader(csv_file, delimiter = ",")
-
-    # length = len(weather_data) #retreving the amount of forecasts 
-    lowest_record = [min[1] for min in weather_data] #retreiving the lowest temp in list
+    # weather_data = load_data_from_csv("tests/data/example_two.csv")
+    days = len(weather_data)
+    lowest_record = [min[1] for min in weather_data] #retreiving the lowest temp in list https://www.delftstack.com/howto/python/one-line-for-loop-python/
     highest_record = [max[2] for max in weather_data] #retreiving the highest temp in list
-    date = [date[0] for date in weather_data] #retreiving the ddate index
+    dates = [date[0] for date in weather_data] #retreiving the date index
 
-    lowest_temp =  format_temperature(convert_f_to_c(find_min(lowest_record)[0])) #i think i've done something wrong
-    # lowest_date = convert_date(find_min)
-    highest_temp = 0
+    lowest_temp =  format_temperature(convert_f_to_c(find_min(lowest_record)[0])) #3 functions to find from the lowest_record in list
+    highest_temp = format_temperature(convert_f_to_c(find_max(highest_record)[0]))
+    lowest_date = convert_date(dates[find_min(lowest_record)[1]])
+    highest_date = convert_date(dates[find_max(highest_record)[1]])
 
-print(highest_temp)
-print(lowest_temp)
+    avg_low = format_temperature(convert_f_to_c(calculate_mean(lowest_record)))
+    avg_high = format_temperature(convert_f_to_c(calculate_mean(highest_record)))
 
+    # print(f" lowest_temp: {lowest_temp}")
+    # print(f" highest_temp: {highest_temp}")
+    # print(f" avg low: {avg_low}")
+    # print(f" avg high: {avg_high}")
 
-print("{days} Day Overview")
-print(f"The lowest temperature will be {lowest_temp} , and will occur on {date}  ")
+    return f"{days} Day Overview\n  The lowest temperature will be {lowest_temp}, and will occur on {lowest_date}.\n  The highest temperature will be {highest_temp}, and will occur on {highest_date}.\n  The average low this week is {avg_low}.\n  The average high this week is {avg_high}.\n"
 
-
-#5 Day Overview
-#   The lowest temperature will be 9.4°C, and will occur on Friday 02 July 2021.
-#   The highest temperature will be 20.0°C, and will occur on Saturday 03 July 2021.
-#   The average low this week is 12.2°C.
-#   The average high this week is 17.8°C.
+# print(generate_summary(weather_data))
 
 def generate_daily_summary(weather_data):
     """Outputs a daily summary for the given weather data.
@@ -173,4 +170,33 @@ def generate_daily_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
-    pass
+weather_data = load_data_from_csv("tests/data/example_two.csv")
+daily_list = []
+
+
+for data in weather_data:
+    day = data[0]
+    # max_temp = format_temperature(convert_f_to_c(find_max(weather_data[0][2])))
+    lowest_record = [min[1] for min in weather_data]
+
+print(lowest_record)
+
+# ---- Friday 02 July 2021 ----
+#   Minimum Temperature: 9.4°C
+#   Maximum Temperature: 19.4°C
+
+# ---- Saturday 03 July 2021 ----
+#   Minimum Temperature: 13.9°C
+#   Maximum Temperature: 20.0°C
+
+# ---- Sunday 04 July 2021 ----
+#   Minimum Temperature: 13.3°C
+#   Maximum Temperature: 16.7°C
+
+# ---- Monday 05 July 2021 ----
+#   Minimum Temperature: 12.8°C
+#   Maximum Temperature: 16.1°C
+
+# ---- Tuesday 06 July 2021 ----
+#   Minimum Temperature: 11.7°C
+#   Maximum Temperature: 16.7°C
