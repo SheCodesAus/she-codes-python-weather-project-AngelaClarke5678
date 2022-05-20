@@ -2,8 +2,7 @@ import csv
 from datetime import datetime
 from encodings import utf_8
 import statistics
-import pandas 
-import os
+
 
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
@@ -18,7 +17,6 @@ def format_temperature(temp):
         A string contain the temperature and "degrees celcius."
     """
     return f"{temp}{DEGREE_SYBMOL}"
-print(format_temperature("32"))
 
 def convert_date(iso_string): #https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
     """Converts and ISO formatted date into a human readable format.
@@ -31,7 +29,6 @@ def convert_date(iso_string): #https://docs.python.org/3/library/datetime.html#s
     convert_date = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S%z") #creating the date time object
     convert_date =  datetime.strftime(convert_date, "%A %d %B %Y") #formating to required format
     return convert_date   
-print(convert_date("2021-07-05T07:00:00+08:00"))
 
 
 def convert_f_to_c(temp_in_farenheit):
@@ -44,9 +41,7 @@ def convert_f_to_c(temp_in_farenheit):
     """
     temp_c = round(((float(temp_in_farenheit) - 32) * 5 / 9),1) 
     return temp_c
-print(convert_f_to_c(390))
 
-weather_data = [35,6,14,26,9,1]
 
 def calculate_mean(weather_data): #https://appdividend.com/2022/01/19/python-mean/
     weather_list = []
@@ -62,7 +57,6 @@ def calculate_mean(weather_data): #https://appdividend.com/2022/01/19/python-mea
         weather_list.append(weather) 
         calculate_mean = statistics.mean(weather_list)
     return calculate_mean
-print(calculate_mean(weather_data))
 
 def load_data_from_csv(csv_file):
     """Reads a csv file and stores the data in a list.
@@ -82,11 +76,6 @@ def load_data_from_csv(csv_file):
             if line:
                 weather_data.append([line[0],float(line[1]),float((line[2]))])      
     return weather_data
-
-print(load_data_from_csv("tests/data/example_one.csv"))    
-
-
-weather_data = [49, 57, 56, 55, 53, 49]
 
 
 def find_min(weather_data): #min max functions https://www.youtube.com/watch?v=fdwyp1xvD_I, range length https://www.freecodecamp.org/news/list-index-out-of-range-python-error-message-solved/#:~:text=You'll%20get%20the%20Indexerror,you're%20using%20negative%20indexing.
@@ -108,7 +97,6 @@ def find_min(weather_data): #min max functions https://www.youtube.com/watch?v=f
                 min_index = i #min index equals index
     return min_val, min_index
     
-print(find_min(weather_data))
 
 def find_max(weather_data):
     """Calculates the maximum value in a list of numbers.
@@ -128,7 +116,6 @@ def find_max(weather_data):
                 max_index = i #min index equals index
     return max_val, max_index
 
-print(find_max(weather_data))
 
 def generate_summary(weather_data):
     """Outputs a summary for the given weather data.
